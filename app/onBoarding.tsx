@@ -1,18 +1,17 @@
-import { View, StyleSheet, Text, TextInput, Button, Alert } from 'react-native';
-import { Link, Stack } from 'expo-router';
-import React, {useState} from 'react';
-import Swiper from "react-native-swiper";
+import 'react-native-gesture-handler'; // Ensure this is the first import
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthService from '../services/auth.service'; // Ensure your AuthService is imported
 import { AxiosError } from 'axios'; // Import AxiosError to type the error correctly
+import Swiper from 'react-native-swiper'; // Import the swiper component
 
-export default function indexScreen({ navigation }: any) {
-
+const OnboardingScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false); // Toggle between login/register
   const [showForm, setShowForm] = useState(false); // To control when to show the form
-  
+
   const handleSubmit = async () => {
     try {
       const userData = { email, password };
@@ -58,83 +57,78 @@ export default function indexScreen({ navigation }: any) {
   };
 
   return (
-    <>
-      <Stack.Screen />
-      <View style={styles.container}>
-        <Swiper
-        style={styles.wrapper}
+    <View style={styles.container}>
+      <Swiper
+        style={styles.swiper}
         loop={false}
         showsPagination={true}
-        >
+        onIndexChanged={(index) => {
+          if (index === 2) {
+            setShowForm(true); // Show form when reaching last slide
+          }
+        }}
+      >
+        {/* Slide 1 */}
+        <View style={styles.slide}>
+          <Text style={styles.title}>Become an Elite Scorer</Text>
+          <Text style={styles.description}>Master finishing, mid-range, 3PT, and post moves with our workout cycles!</Text>
+        </View>
 
-      {/* Slide 1 */}
-      <View style={styles.slide}>
-        <Text style={styles.title}>Become an Elite Scorer</Text>
-        <Text style={styles.description}>Master finishing, mid-range, 3PT, and post moves with our workout cycles!</Text>
-      </View>
+        {/* Slide 2 */}
+        <View style={styles.slide}>
+          <Text style={styles.title}>Master Basketball Skills</Text>
+          <Text style={styles.description}>Learn everything, from basic shots to complex moves, with our courses!</Text>
+        </View>
 
-      {/* Slide 2 */}
-      <View style={styles.slide}>
-        <Text style={styles.title}>Master Basketball Skills</Text>
-        <Text style={styles.description}>Learn everything, from basic shots to complex moves, with our courses!</Text>
-      </View>
-      
-      {/* Slide 3 */}
-      <View style={styles.slide}>
-        <Text style={styles.title}>Transform Your Physique</Text>
-        <Text style={styles.description}>Build explosive lower body strength, upper body hypertrophy, and cardio for elite performance!</Text>
-      </View>
+        {/* Slide 3 */}
+        <View style={styles.slide}>
+          <Text style={styles.title}>Transform Your Physique</Text>
+          <Text style={styles.description}>Build explosive lower body strength, upper body hypertrophy, and cardio for elite performance!</Text>
+        </View>
 
-      {/* Login/Register Form (Slide 4) */}
-      <View style={styles.formContainer}>
-        <Text style={styles.title}>{isRegistering ? 'Register' : 'Login'}</Text>
+        {/* Login/Register Form (Slide 4) */}
+        {showForm && (
+          <View style={styles.formContainer}>
+            <Text style={styles.title}>{isRegistering ? 'Register' : 'Login'}</Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none" 
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+            />
 
-        <Button title={isRegistering ? 'Register' : 'Login'} onPress={handleSubmit} />
+            <Button title={isRegistering ? 'Register' : 'Login'} onPress={handleSubmit} />
 
-        <Text
-          style={styles.switchText}
-          onPress={() => setIsRegistering(!isRegistering)}
-        >
-          {isRegistering ? 'Already have an account? Login' : 'Don\'t have an account? Register'}
-        </Text>
-      </View>
-
-
-    </Swiper>
-      </View>
-    </>
+            <Text
+              style={styles.switchText}
+              onPress={() => setIsRegistering(!isRegistering)}
+            >
+              {isRegistering ? 'Already have an account? Login' : 'Don\'t have an account? Register'}
+            </Text>
+          </View>
+        )}
+      </Swiper>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
     justifyContent: 'center',
-    alignItems: 'center',
+    padding: 20,
   },
-
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff',
+  swiper: {
+    flex: 1,
   },
-  wrapper: {},
   slide: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -150,6 +144,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginHorizontal: 20,
   },
+  formContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+  },
   input: {
     height: 40,
     borderColor: 'gray',
@@ -158,18 +157,11 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 5,
   },
-  formContainer: {
-    justifyContent: 'center',
-    padding: 20,
-  },
-  text: {
-    color: "#fff",
-    fontSize: 30,
-    fontWeight: "bold",
-  },
   switchText: {
     marginTop: 20,
     color: 'blue',
     textAlign: 'center',
   },
 });
+
+export default OnboardingScreen;
