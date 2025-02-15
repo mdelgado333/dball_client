@@ -8,12 +8,19 @@ import { AxiosError } from 'axios'; // Import AxiosError to type the error corre
 
 export default function indexScreen({ navigation }: any) {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isRegistering, setIsRegistering] = useState(false); // Toggle between login/register
-  const [showForm, setShowForm] = useState(false); // To control when to show the form
-  
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [repeatedPassword, setRepeatedPassword] = useState('')
+  const [isRegistering, setIsRegistering] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+
   const handleSubmit = async () => {
+
+    if (isRegistering && password !== repeatedPassword) {
+      Alert.alert('Error', 'Las contraseñas no coinciden');
+      return;
+    }
+
     try {
       const userData = { email, password };
       let response;
@@ -64,53 +71,82 @@ export default function indexScreen({ navigation }: any) {
         <Swiper
         style={styles.wrapper}
         loop={false}
-        showsPagination={true}
+        showsPagination={currentIndex !== 3}
+        onIndexChanged={(index) => setCurrentIndex(index)}
         >
 
       {/* Slide 1 */}
       <View style={styles.slide}>
-        <Text style={styles.title}>Become an Elite Scorer</Text>
-        <Text style={styles.description}>Master finishing, mid-range, 3PT, and post moves with our workout cycles!</Text>
+        <Text style={styles.title}>⭐️ Conviértete en anotador de elite</Text>
+        <Text style={styles.description}>Gracias a nuestra metodlogía de entrenamiento serás capaz de dominar los 5 niveles de anotación:</Text>
+        <View style={styles.list}>
+        <Text>✅ Finalización</Text>
+        <Text>✅ Media distancia</Text>
+        <Text>✅ Triple</Text>
+        <Text>✅ Poste</Text>
+        <Text>✅ Iso</Text>
+        </View>
       </View>
 
       {/* Slide 2 */}
       <View style={styles.slide}>
-        <Text style={styles.title}>Master Basketball Skills</Text>
-        <Text style={styles.description}>Learn everything, from basic shots to complex moves, with our courses!</Text>
+        <Text style={styles.title}>👨🏻‍🏫 Domina cualquier habilidad</Text>
+        <Text style={styles.description}>Aprende cualquier habilidad, desde los fundamentos de la mecánica de tiro a un movimiento más complicado con todas sus variantes, nuestra metodología de enseñanza te llevará de 0 a 100 en cualquier área:</Text>
+        <View style={styles.list}>
+          <Text>✅ Bote</Text>
+          <Text>✅ Tiro</Text>
+          <Text>✅ Finalización</Text>
+          <Text>✅ Movimientos</Text>
+        </View>
       </View>
       
       {/* Slide 3 */}
       <View style={styles.slide}>
-        <Text style={styles.title}>Transform Your Physique</Text>
-        <Text style={styles.description}>Build explosive lower body strength, upper body hypertrophy, and cardio for elite performance!</Text>
+        <Text style={styles.title}>💪🏻 Transforma tu físico</Text>
+        <Text style={styles.description}>Dar el salto al siguiente nivel no siempre es un tema de habilidad... A través de nuestros entrenamientos podrás mejorar en todos estos aspectos:</Text>
+        <View style={styles.list}>
+          <Text>✅ Fuerza y explosividad para mayor salto vertical</Text>
+          <Text>✅ Velocidad y cambios de ritmo para mejor rendimiento</Text>
+          <Text>✅ Hipertrofia de tren superior para aguantar el contacto</Text>
+          <Text>✅ Cardio para jugar más minutos mejor</Text>
+        </View>
       </View>
 
       {/* Login/Register Form (Slide 4) */}
       <View style={styles.formContainer}>
-        <Text style={styles.title}>{isRegistering ? 'Register' : 'Login'}</Text>
+        <Text style={styles.title}>{isRegistering ? 'Registrar' : 'Iniciar sesión'}</Text>
 
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder="Correo electrónico"
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none" 
         />
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder="Contraseña"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
+        {isRegistering && (
+          <TextInput
+            style={styles.input}
+            placeholder="Confirmar Contraseña"
+            secureTextEntry
+            value={repeatedPassword}
+            onChangeText={setRepeatedPassword}
+          />
+        )}
 
-        <Button title={isRegistering ? 'Register' : 'Login'} onPress={handleSubmit} />
+        <Button title={isRegistering ? 'Registrar' : 'Iniciar sesión'} onPress={handleSubmit} />
 
         <Text
           style={styles.switchText}
           onPress={() => setIsRegistering(!isRegistering)}
         >
-          {isRegistering ? 'Already have an account? Login' : 'Don\'t have an account? Register'}
+          {isRegistering ? 'Ya tienes una cuenta? Inicia sesión' : 'No tienes una cuenta? Regístrate'}
         </Text>
       </View>
 
@@ -124,7 +160,7 @@ export default function indexScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -159,6 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   formContainer: {
+    flex: 1,
     justifyContent: 'center',
     padding: 20,
   },
@@ -172,4 +209,10 @@ const styles = StyleSheet.create({
     color: 'blue',
     textAlign: 'center',
   },
+  list: {
+    width: 300,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start'
+  }
 });
