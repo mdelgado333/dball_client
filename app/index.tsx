@@ -1,25 +1,39 @@
-import { View, StyleSheet, Text, TextInput, Button, Alert } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Button, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Link, Stack } from 'expo-router';
 import React, {useState} from 'react';
 import Swiper from "react-native-swiper";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AuthService from '../services/auth.service'; // Ensure your AuthService is imported
-import { AxiosError } from 'axios'; // Import AxiosError to type the error correctly
+import AuthService from '../services/auth.service'
+import { AxiosError } from 'axios'
+import { useRouter } from 'expo-router'
+import { Ionicons } from '@expo/vector-icons'
 
-export default function indexScreen({ navigation }: any) {
+export default function indexScreen() {
 
+  const router = useRouter();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatedPassword, setRepeatedPassword] = useState('')
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const [isRepeatedPasswordVisible, setIsRepeatedPasswordVisible] = useState(false)
   const [isRegistering, setIsRegistering] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async () => {
+
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert('Error', 'Por favor, ingresa un correo electrónico válido.');
+      return;
+    }
 
     if (isRegistering && password !== repeatedPassword) {
       Alert.alert('Error', 'Las contraseñas no coinciden');
       return;
     }
+
+    setLoading(true); // Start loading
 
     try {
       const userData = { email, password };
@@ -31,14 +45,24 @@ export default function indexScreen({ navigation }: any) {
         response = await AuthService.login(userData);     // Log in the user
       }
 
-      // Store the token in AsyncStorage
-      await AsyncStorage.setItem('authToken', response.data.token);
+      
+      console.log('Login response:', response);
 
-      // Navigate to the main app screen (Tabs)
-      navigation.replace('(tabs)');
+      // Store the token in AsyncStorage
+      if (response?.data?.token) {
+        // Store the token in AsyncStorage
+        await AsyncStorage.setItem('authToken', response.data.token);
+  
+        
+      router.replace('/(tabs)/(explore)');
+    } else {
+      throw new Error('No token received from server');
+    }
     } catch (error) {
       // Type the error as AxiosError to access the response data
       const axiosError = error as AxiosError;
+
+      console.error('Login error:', axiosError);
 
       // Default error message
       let errorMessage = 'Something went wrong. Please try again.';
@@ -60,7 +84,14 @@ export default function indexScreen({ navigation }: any) {
       }
 
       // Show the alert with the error message
-      Alert.alert('Error', errorMessage);
+      Alert.alert('Error', errorMessage, [
+        {
+          text: 'OK',
+          onPress: () => setLoading(false), // Set loading to false after the user presses OK
+        },
+      ]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -123,24 +154,49 @@ export default function indexScreen({ navigation }: any) {
           onChangeText={setEmail}
           autoCapitalize="none" 
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-        {isRegistering && (
+        <View style={styles.passwordContainer}>
           <TextInput
-            style={styles.input}
+            style={styles.ti}
+            placeholder="Contraseña"
+            secureTextEntry={!isPasswordVisible}
+            value={password}
+            onChangeText={setPassword}
+          />
+          <TouchableOpacity
+            style={styles.to}
+            onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+            <Ionicons
+              name={isPasswordVisible ? 'eye-off' : 'eye'}
+              size={24}
+              color="gray"
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+        {isRegistering && (
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.ti}
             placeholder="Confirmar Contraseña"
-            secureTextEntry
+            secureTextEntry={!isRepeatedPasswordVisible}
             value={repeatedPassword}
             onChangeText={setRepeatedPassword}
           />
-        )}
+          <TouchableOpacity
+          style={styles.to}
+          onPress={() => setIsRepeatedPasswordVisible(!isRepeatedPasswordVisible)}>
+            <Ionicons
+              name={isRepeatedPasswordVisible ? 'eye-off' : 'eye'}
+              size={24}
+              color="gray"
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
 
-        <Button title={isRegistering ? 'Registrar' : 'Iniciar sesión'} onPress={handleSubmit} />
+        <Button title={isRegistering ? 'Registrar' : 'Iniciar sesión'} onPress={handleSubmit} disabled={loading}/>
+        {loading && <ActivityIndicator size="large" color="#0000ff" />}
 
         <Text
           style={styles.switchText}
@@ -164,7 +220,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+  passwordContainer: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 15,
+    paddingLeft: 10,
+    borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  icon: {
+    position: 'absolute',
+    right: 10,
+  },
   button: {
     fontSize: 20,
     textDecorationLine: 'underline',
@@ -214,5 +283,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'flex-start'
+  },
+  to: {
+    width: 50,
+    justifyContent: 'center'
+  },
+  ti: {
+    width: 200
   }
 });
