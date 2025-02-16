@@ -6,6 +6,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ExploreScreen() {
   const [text, setText] = useState('');
+  type ExplorePaths = 'shooting' | 'dribbling' | 'iso' | 'finishing' | 'post' | 'lower' | 'cardio' | 'upper';
+  const navigateTo = (path: ExplorePaths) => router.navigate(`/(tabs)/(explore)/(${path})`);
+
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.page}>
       <View style={styles.searchSection}>
@@ -19,42 +22,42 @@ export default function ExploreScreen() {
       </View>
       <ScrollView style={styles.contentSection}>
         <View style={styles.container}>
-          <Pressable onPress={()=>router.navigate('/(tabs)/(explore)/(shooting)')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('shooting')} style={styles.item}>
             <Text>
               Tiro
             </Text>
           </Pressable>
-          <Pressable onPress={()=>router.navigate('/(tabs)/(explore)/(dribbling)')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('dribbling')} style={styles.item}>
             <Text>
               Bote
             </Text>
           </Pressable>
-          <Pressable onPress={()=>router.navigate('/(tabs)/(explore)/(iso)')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('iso')} style={styles.item}>
             <Text>
               1v1
             </Text>
           </Pressable>
-          <Pressable onPress={()=>router.navigate('/(tabs)/(explore)/(finishing)')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('finishing')} style={styles.item}>
             <Text>
               Finalización
             </Text>
           </Pressable>
-          <Pressable onPress={()=>router.navigate('/(tabs)/(explore)/(post)')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('post')} style={styles.item}>
             <Text>
               Poste
             </Text>
           </Pressable>
-          <Pressable onPress={()=>router.navigate('/(tabs)/(explore)/(lower)')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('lower')} style={styles.item}>
             <Text>
               Tren Inferior
             </Text>
           </Pressable>
-          <Pressable onPress={()=>router.navigate('/(tabs)/(explore)/(cardio)')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('cardio')} style={styles.item}>
             <Text>
               Cardio
             </Text>
           </Pressable>
-          <Pressable onPress={()=>router.navigate('/(tabs)/(explore)/(upper)')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('upper')} style={styles.item}>
             <Text>
               Tren superior
             </Text>
