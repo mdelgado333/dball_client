@@ -3,31 +3,31 @@ import API from "./api.service"
 class CourseService {
 
     getAllCourses = () => {
-
+        return API.get('/courses')
     }
 
-    getCourseById = () => {
-
+    getCourseById = (courseId: any) => {
+        return API.get(`/courses/${courseId}`)
     }
 
-    newCourse = () => {
-
+    newCourse = (courseData: any) => {
+        return API.post('/courses/newCourse', courseData)
     }
 
-    updateCourse = () => {
-
+    updateCourse = (courseId: any, courseData: any) => {
+        return API.patch(`/courses/${courseId}`, courseData)
     }
 
-    addUnitToCourse = () => {
-
+    addUnitToCourse = (courseId: any, unitId: any) => {
+        return API.patch(`/courses/${courseId}/addUnit`, unitId)
     }
 
-    deleteUnitFromCourse = () => {
-
+    deleteUnitFromCourse = (courseId: any, indexData: any) => {
+        return API.patch(`/courses/${courseId}/deleteUnit`, indexData)
     }
 
-    deleteCourse = () => {
-        
+    deleteCourse = (courseId: any) => {
+        return API.delete(`/courses/${courseId}`)
     }
 
 }
