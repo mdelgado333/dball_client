@@ -48,42 +48,34 @@ export default function indexScreen() {
       
       console.log('Login response:', response);
 
-      // Store the token in AsyncStorage
       if (response?.data?.token) {
-        // Store the token in AsyncStorage
         await AsyncStorage.setItem('authToken', response.data.token);
-  
-        
-      router.replace('/(tabs)/(explore)');
-    } else {
-      throw new Error('No token received from server');
-    }
-    } catch (error) {
-      // Type the error as AxiosError to access the response data
-      const axiosError = error as AxiosError;
-
-      console.error('Login error:', axiosError);
-
-      // Default error message
-      let errorMessage = 'Something went wrong. Please try again.';
-
-      // Safely check the structure of axiosError.response?.data
-      if (axiosError.response?.data) {
-        const errorData = axiosError.response.data;
-
-        // Check if errorData is an object and has a 'message' property
-        if (typeof errorData === 'object' && errorData !== null) {
-          // If it's an object and has a 'message' property, use that
-          if ('message' in errorData) {
-            errorMessage = (errorData as { message: string }).message;
-          }
-        } else if (typeof errorData === 'string') {
-          // If it's just a string, use it directly as the error message
-          errorMessage = errorData;
-        }
+        router.replace('/(tabs)/(explore)');
+      } else {
+        throw new Error('No token received from server');
       }
+      } catch (error) {
+        // Type the error as AxiosError to access the response data
+        const axiosError = error as AxiosError;
 
-      // Show the alert with the error message
+        console.error('Login error:', axiosError);
+
+      
+        let errorMessage = 'Something went wrong. Please try again.';
+
+        if (axiosError.response?.data) {
+          const errorData = axiosError.response.data;
+
+          if (typeof errorData === 'object' && errorData !== null) {
+
+            if ('message' in errorData) {
+              errorMessage = (errorData as { message: string }).message;
+            }
+          } else if (typeof errorData === 'string') {
+            errorMessage = errorData;
+          }
+        }
+
       Alert.alert('Error', errorMessage, [
         {
           text: 'OK',

@@ -71,7 +71,7 @@ export default function ExploreScreen() {
         <View>
           <Pressable style={styles.largeItems}>
             <Text>
-              La biblia del tirador
+              Shooting Bible
             </Text>
             <Text>
               Aprende de 0 o perfecciona la mecánica de tiro paso a paso
@@ -79,18 +79,18 @@ export default function ExploreScreen() {
           </Pressable>
           <Pressable style={styles.largeItems}>
             <Text>
-              La Enciclopedia de bote
+              Crossover Catalyst
             </Text>
             <Text >
-              Aprende todos los fundamentos del bote y construye una base sólida de movimientos para usar en la pista
+              Construye una base sólida de fundamentos de bote para aprender a la perfección el crossover, así como distintos escenarios en los que utilizar todas sus variantes
             </Text>
           </Pressable>
           <Pressable style={styles.largeItems}>
             <Text>
-              El diccionario NBA
+              Hesi God
             </Text>
             <Text>
-              Aprende los movimientos de tus jugadores favoritos y ponlos en práctica con entrenamientos que te preparan para usarlos en cualquier situación
+              Entiende a la perfección porque funciona la hesi para después poder amoldarla a las distintas formas de hacer una hesi, desde el mítico hesi pull-up hasta hesis más complicadas como la Segu Hesi
             </Text>
           </Pressable>
         </View>

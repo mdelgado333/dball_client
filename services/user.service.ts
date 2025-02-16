@@ -15,6 +15,10 @@ class UserService {
   updateUser = (userId: any, userData: any) => {
     return API.patch(`/users/${userId}`, userData);
   };
+
+  deleteUser = (userId: any) => {
+    return API.delete(`/users/${userId}`)
+  }
 }
 
-export default new UserService();  // Export a single instance of UserService
+export default new UserService()

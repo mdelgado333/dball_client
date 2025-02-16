@@ -1,43 +1,27 @@
-import axios from 'axios'
+import API from "./api.service"
 
 class LearningService {
-    app: any
-
-    constructor() {
-
-        this.app = axios.create({
-            baseURL: `${process.env.REACT_NATIVE_APP_API_URL}/learnings`
-        })
-
-        this.app.interceptors.request.use((config: any) => {
-
-            const storedToken = localStorage.getItem("authToken");
-
-            if (storedToken) {
-                config.headers = { Authorization: `Bearer ${storedToken}` }
-            }
-            return config
-        })
-    }
 
     getAllLearnings = () => {
-        return this.app.get('/')
+        return API.get('/learnings')
     }
 
-    getOneLearning = (id: any) => {
-        return this.app.get(`/${id}`)
+    getLearningById = (learningId: any) => {
+        return API.get(`/learnings/${learningId}`)
     }
 
-    newLearning = (learning: any) => {
-        return this.app.post('/newLearning', learning)
+    newLearning = (learningData: any) => {
+        return API.post(`/learnings/newLearning`, learningData)
     }
 
-    editOneLearning = (id: any) => {
-        return this.app.patch(`/${id}`)
+    updateLearning = (learningId: any, learningData: any) => {
+        return API.patch(`/learnings/${learningId}`, learningData)
     }
 
-    deleteOneLearning = (id: any) => {
-        return this.app.delete(`/${id}`)
+    deleteLearning = (learningId: any) => {
+        return API.delete(`/learnings/${learningId}`)
     }
 
 }
+
+export default new LearningService()

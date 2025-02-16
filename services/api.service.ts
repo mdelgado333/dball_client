@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: "https://e852-84-78-242-179.ngrok-free.app/api",
+  baseURL: "http://192.168.1.14:8080/api",  
+//baseURL: "https://4bec-90-167-218-69.ngrok-free.app/api",
   timeout: 5000,
 });
 

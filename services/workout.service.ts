@@ -1,43 +1,35 @@
-import axios from 'axios'
+import API from "./api.service"
 
-class LearningService {
-    app: any
-
-    constructor() {
-
-        this.app = axios.create({
-            baseURL: `${process.env.REACT_NATIVE_APP_API_URL}/workouts`
-        })
-
-        this.app.interceptors.request.use((config: any) => {
-
-            const storedToken = localStorage.getItem("authToken");
-
-            if (storedToken) {
-                config.headers = { Authorization: `Bearer ${storedToken}` }
-            }
-            return config
-        })
-    }
+class WorkoutService {
 
     getAllWorkouts = () => {
-        return this.app.get('/')
+        return API.get('/workouts')
     }
 
-    getOneWorkout = (id: any) => {
-        return this.app.get(`/${id}`)
+    getWorkoutById = (workoutId: any) => {
+        return API.get(`/workouts/${workoutId}`)
     }
 
-    newWorkout = (workout: any) => {
-        return this.app.post('/newLearning', workout)
+    newWorkout = (workoutData: any) => {
+        return API.post('/workouts/newWorkout', workoutData)
     }
 
-    editOneWorkout = (id: any) => {
-        return this.app.patch(`/${id}`)
+    updateWorkout = (workoutId: any, workoutData: any) => {
+        return API.patch(`/workouts/${workoutId}`, workoutData)
     }
 
-    deleteOneWorkout = (id: any) => {
-        return this.app.delete(`/${id}`)
+    addExerciseToWorkout = (workoutId: any, exerciseId: any) => {
+        return API.patch(`/workouts/${workoutId}/addExercise`, exerciseId)
+    }
+
+    deleteExerciseFromWorkout = (workoutId: any, indexData: any) => {
+        return API.patch(`/workouts/${workoutId}/deleteExercise`, indexData)
+    }
+
+    deleteWorkout = (workoutId: any) => {
+        return API.delete(`/workouts/${workoutId}`)
     }
 
 }
+
+export default new WorkoutService
