@@ -7,8 +7,8 @@ export default function Layout() {
       <Stack.Screen name="index" options={{ headerShown: false }}/>
       <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="(course)" options={{ headerShown: true }} />
-      <Stack.Screen name="(workout)" options={{ headerShown: true }} />
+      <Stack.Screen name="(courses)" options={{ headerShown: false }} />
+      <Stack.Screen name="(cycles)" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>
   );

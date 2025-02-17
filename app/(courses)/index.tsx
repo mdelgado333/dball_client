@@ -1,11 +1,11 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function WorkoutScreen() {
+export default function CoursesScreen() {
     return (
         <SafeAreaView style={styles.page}>
             <Text style={styles.text}>
-                estás en /workouts
+                Estas en /(courses)
             </Text>
         </SafeAreaView>
     )

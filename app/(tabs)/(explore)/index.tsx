@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function ExploreScreen() {
   const [text, setText] = useState('');
   type ExplorePaths = 'shooting' | 'dribbling' | 'iso' | 'finishing' | 'post' | 'lower' | 'cardio' | 'upper';
-  const navigateTo = (path: ExplorePaths) => router.navigate(`/(tabs)/(explore)/(${path})`);
+  const navigateTo = (category: ExplorePaths) => router.push({ pathname: "/(tabs)/(explore)/(category)", params: { category } })
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.page}>
