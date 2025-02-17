@@ -15,23 +15,29 @@ const categoryTitles = {
     upper: "tren superior"
 }
 
+const categoryPaths = {
+    courses: "/(courses)/(category)",
+    cycles: "/(cycles)/(category)"
+  }
+
 export default function CategoryScreen() {
 
     const { category } = useLocalSearchParams()
     const categoryKey = category as keyof typeof categoryTitles;
     const [isRecentOrFeatured, setIsRecentOrFeatured] = useState('recent');
-    const navigateTo = () => router.push({ pathname: "/(courses)/(coursesByCategory)", params: { category } })
+    const navigateTo = (path: keyof typeof categoryPaths) => router.push({ pathname: `/(${path})/(category)`, params: { category } })
+    
 
     return (
         <SafeAreaView edges={['top', 'left', 'right']} >
             <View>
                 <View style={styles.containerLargeBubbles}>
-                    <Pressable style={styles.largeBubble} onPress={()=>navigateTo()}>
+                    <Pressable style={styles.largeBubble} onPress={()=>navigateTo("courses")}>
                         <Text>
                             { `Cursos de ${categoryTitles[categoryKey] }` }
                         </Text>
                     </Pressable>
-                    <Pressable style={styles.largeBubble} onPress={()=>navigateTo()}>
+                    <Pressable style={styles.largeBubble} onPress={()=>navigateTo("cycles")}>
                         <Text>
                             { `Entrenamientos de ${categoryTitles[categoryKey] }` }
                         </Text>

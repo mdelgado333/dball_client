@@ -13,7 +13,7 @@ const categoryTitles = {
     upper: "tren superior"
 }
 
-export default function CoursesByCategoryScreen() {
+export default function CategoryScreen() {
 
     const { category } = useLocalSearchParams()
     const categoryKey = category as keyof typeof categoryTitles;
@@ -21,9 +21,6 @@ export default function CoursesByCategoryScreen() {
 
     return (
         <SafeAreaView style={styles.page}>
-            <Text style={styles.text}>
-                Estas en /(courses)/(coursesByCategory)
-            </Text>
             <Text>
             { `Cursos de ${categoryTitles[categoryKey] }` }
             </Text>
