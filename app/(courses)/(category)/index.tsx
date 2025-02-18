@@ -1,6 +1,17 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import CycleService from "../../../services/cycle.service"; // Adjust path if needed
+
+interface Cycle {
+    _id: string;
+    info: {
+        title: string;
+        subtitle: string;
+        description: string;
+    };
+}
 
 const categoryTitles = {
     shooting: "tiro",
@@ -11,33 +22,64 @@ const categoryTitles = {
     lower: "tren inferior",
     cardio: "cardio",
     upper: "tren superior"
-}
+};
 
 export default function CategoryScreen() {
-
-    const { category } = useLocalSearchParams()
+    const { category } = useLocalSearchParams();
     const categoryKey = category as keyof typeof categoryTitles;
     
+    const [cycles, setCycles] = useState()
+    useEffect(() => {
+        loadCycles()
+    }, [])
+
+    const loadCycles = () => {
+        CycleService
+            .getAllCycles()
+            .then(({data}) => {
+                setCycles(data)
+            })
+            .catch(err => console.log(err))
+    }
 
     return (
-        <SafeAreaView style={styles.page}>
-            <Text>
-            { `Cursos de ${categoryTitles[categoryKey] }` }
+        <SafeAreaView >
+            <View>
+            <Text style={styles.title}>
+                {`Entrenamientos de ${categoryTitles[categoryKey]}`}
             </Text>
+            
+            <FlatList
+                data={cycles}
+                keyExtractor={(item) => item._id}
+                renderItem={({ item }) => (
+                    <View style={styles.workoutItem}>
+                        <Text>{item.info.title}</Text>
+                    </View>
+                )}
+            />
+            </View>
         </SafeAreaView>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     page: {
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#fff',
-        borderWidth: 1
-      },
-      text: {
-        color: '#000',
-      },
-})
+        padding: 20
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20
+    },
+    workoutItem: {
+        padding: 15,
+        borderWidth: 1,
+        borderRadius: 10,
+        marginBottom: 10,
+        width: '100%'
+    }
+});
