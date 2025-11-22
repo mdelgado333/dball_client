@@ -8,6 +8,8 @@ interface Workout {
     _id: string;
     name: string;
     description: string;
+    week: number;
+    day: number;
 }
 
 interface Cycle {
@@ -43,6 +45,8 @@ export default function CycleScreen() {
             .finally(() => setLoading(false));
     };
 
+    console.log({cycleWorkouts: cycle?.workouts})
+
     if (loading) {
         return (
             <SafeAreaView style={styles.page}>
@@ -72,8 +76,8 @@ export default function CycleScreen() {
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => (
                     <View style={styles.workoutItem}>
-                        <Text>{item.name}</Text>
-                        <Text>{item.description}</Text>
+                        <Text>Week: {item.week}</Text>
+                        <Text>Day: {item.day}</Text>
                     </View>
                 )}
             />

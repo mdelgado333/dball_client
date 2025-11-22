@@ -15,14 +15,14 @@ interface Cycle {
 }
 
 const categoryTitles = {
-    shooting: "tiro",
-    dribbling: "bote",
-    finishing: "finalización",
-    iso: "1v1",
-    post: "poste",
-    lower: "tren inferior",
-    cardio: "cardio",
-    upper: "tren superior"
+    SHOOTING: "tiro",
+    DRIBBLING: "bote",
+    FINISHING: "finalización",
+    ISO: "1v1",
+    POST: "poste",
+    LOWER: "tren inferior",
+    CARDIO: "cardio",
+    UPPER: "tren superior"
 };
 
 export default function CategoryScreen() {
@@ -32,13 +32,19 @@ export default function CategoryScreen() {
     const [cycles, setCycles] = useState()
     useEffect(() => {
         loadCycles()
+        console.log('Empieza aqui: ',category)
     }, [])
 
     const loadCycles = () => {
         CycleService.getAllCycles()
             .then(({ data }) => {
                 console.log("Fetched cycles: ", data)
-                setCycles(data.cycles)
+                console.log(data.cycles)
+                const filteredCycles = data.cycles.filter((cycle:any) => cycle.dballInfo.typeOfContent === category )
+                console.log(`${category} cycles`)
+                console.log(filteredCycles)
+                setCycles(filteredCycles)
+                console.log()
             })
             .catch(err => {
                 console.log("Error fetching cycles: ", err);

@@ -14,14 +14,14 @@ interface Cycle {
 }
 
 const categoryTitles = {
-    shooting: "tiro",
-    dribbling: "bote",
-    finishing: "finalización",
-    iso: "1v1",
-    post: "poste",
-    lower: "tren inferior",
-    cardio: "cardio",
-    upper: "tren superior"
+    SHOOTING: "tiro",
+    DRIBBLING: "bote",
+    FINISHING: "finalización",
+    ISO: "1v1",
+    POST: "poste",
+    LOWER: "tren inferior",
+    CARDIO: "cardio",
+    UPPER: "tren superior"
 };
 
 export default function CategoryScreen() {
@@ -46,7 +46,7 @@ export default function CategoryScreen() {
         <SafeAreaView >
             <View>
             <Text style={styles.title}>
-                {`Entrenamientos de ${categoryTitles[categoryKey]}`}
+                {`Cursos de ${categoryTitles[categoryKey]}`}
             </Text>
             
             <FlatList

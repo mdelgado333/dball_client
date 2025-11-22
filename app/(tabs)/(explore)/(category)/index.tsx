@@ -5,14 +5,14 @@ import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const categoryTitles = {
-    shooting: "tiro",
-    dribbling: "bote",
-    finishing: "finalización",
-    iso: "1v1",
-    post: "poste",
-    lower: "tren inferior",
-    cardio: "cardio",
-    upper: "tren superior"
+    SHOOTING: "tiro",
+    DRIBBLING: "bote",
+    FINISHING: "finalización",
+    ISO: "1v1",
+    POST: "poste",
+    LOWER: "tren inferior",
+    CARDIO: "cardio",
+    UPPER: "tren superior"
 }
 
 const categoryPaths = {

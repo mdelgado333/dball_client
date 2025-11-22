@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ExploreScreen() {
   const [text, setText] = useState('');
-  type ExplorePaths = 'shooting' | 'dribbling' | 'iso' | 'finishing' | 'post' | 'lower' | 'cardio' | 'upper';
+  type ExplorePaths = 'SHOOTING' | 'DRIBBLING' | 'ISO' | 'FINISHING' | 'POST' | 'LOWER' | 'CARDIO' | 'UPPER';
   const navigateTo = (category: ExplorePaths) => router.push({ pathname: "/(tabs)/(explore)/(category)", params: { category } })
 
   return (
@@ -22,42 +22,42 @@ export default function ExploreScreen() {
       </View>
       <ScrollView style={styles.contentSection}>
         <View style={styles.container}>
-          <Pressable onPress={()=>navigateTo('shooting')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('SHOOTING')} style={styles.item}>
             <Text>
               Tiro
             </Text>
           </Pressable>
-          <Pressable onPress={()=>navigateTo('dribbling')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('DRIBBLING')} style={styles.item}>
             <Text>
               Bote
             </Text>
           </Pressable>
-          <Pressable onPress={()=>navigateTo('iso')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('ISO')} style={styles.item}>
             <Text>
               1v1
             </Text>
           </Pressable>
-          <Pressable onPress={()=>navigateTo('finishing')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('FINISHING')} style={styles.item}>
             <Text>
               Finalización
             </Text>
           </Pressable>
-          <Pressable onPress={()=>navigateTo('post')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('POST')} style={styles.item}>
             <Text>
               Poste
             </Text>
           </Pressable>
-          <Pressable onPress={()=>navigateTo('lower')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('LOWER')} style={styles.item}>
             <Text>
               Tren Inferior
             </Text>
           </Pressable>
-          <Pressable onPress={()=>navigateTo('cardio')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('CARDIO')} style={styles.item}>
             <Text>
               Cardio
             </Text>
           </Pressable>
-          <Pressable onPress={()=>navigateTo('upper')} style={styles.item}>
+          <Pressable onPress={()=>navigateTo('UPPER')} style={styles.item}>
             <Text>
               Tren superior
             </Text>
