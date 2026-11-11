@@ -1,0 +1,95 @@
+{
+  "onboarding": {
+    "slide1-title": "⭐️ Conviértete en anotador de elite",
+    "slide1-description": "Gracias a nuestra metodlogía de entrenamiento serás capaz de dominar los 5 niveles de anotación:",
+    "slide1-item1": "✅ Finalización",
+    "slide1-item2": "✅ Media distancia",
+    "slide1-item3": "✅ Triple",
+    "slide1-item4": "✅ Poste",
+    "slide1-item5": "✅ Iso",
+    "slide2-title": "👨🏻‍🏫 Domina cualquier habilidad",
+    "slide2-description": "Aprende cualquier habilidad, desde los fundamentos de la mecánica de tiro a un movimiento más complicado con todas sus variantes, nuestra metodología de enseñanza te llevará de 0 a 100 en cualquier área:",
+    "slide2-item1": "✅ Bote",
+    "slide2-item2": "✅ Tiro",
+    "slide2-item3": "✅ Finalización",
+    "slide2-item4": "✅ Movimientos",
+    "slide3-title": "💪🏻 Transforma tu físico",
+    "slide3-description": "Dar el salto al siguiente nivel no siempre es un tema de habilidad... A través de nuestros entrenamientos podrás mejorar en todos estos aspectos:",
+    "slide3-item1": "✅ Fuerza y explosividad para mayor salto vertical",
+    "slide3-item2": "✅ Velocidad y cambios de ritmo para mejor rendimiento",
+    "slide3-item3": "✅ Hipertrofia de tren superior para aguantar el contacto",
+    "slide3-item4": "✅ Cardio para jugar más minutos mejor"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "register": "Registrar",
+    "email-placeholder": "Correo electrónico",
+    "password-placeholder": "Contraseña",
+    "confirm-password-placeholder": "Confirmar Contraseña",
+    "invalid-email": "Por favor, ingresa un correo electrónico válido.",
+    "password-mismatch": "Las contraseñas no coinciden",
+    "generic-error": "Algo salió mal. Inténtalo de nuevo.",
+    "has-account": "Ya tienes una cuenta? Inicia sesión",
+    "no-account": "No tienes una cuenta? Regístrate"
+  },
+  "tabs": {
+    "today": "Hoy",
+    "explore": "Explorar",
+    "profile": "Perfil"
+  },
+  "explore": {
+    "search-placeholder": "Busca entrenamientos o tutoriales",
+    "unlock-potential": "Desbloquea todo tu potencial",
+    "start-trial": "Empieza tu prueba gratuita",
+    "recent": "recientes",
+    "featured": "destacados"
+  },
+  "categories": {
+    "SHOOTING": "Tiro",
+    "DRIBBLING": "Bote",
+    "FINISHING": "Finalización",
+    "ISO": "1v1",
+    "POST": "Poste",
+    "LOWER": "Tren Inferior",
+    "CARDIO": "Cardio",
+    "UPPER": "Tren superior"
+  },
+  "courses": {
+    "prefix": "Cursos de"
+  },
+  "cycles": {
+    "prefix": "Entrenamientos de"
+  },
+  "subscription": {
+    "title": "Prueba DBALL gratis",
+    "unlock-library": "Desbloquea toda la biblioteca de DBALL",
+    "unlock-workouts": "Desbloquea todos los entrenamientos",
+    "unlock-courses": "Desbloquea todos los cursos",
+    "unlock-ai": "Desbloquea la IA de tiro",
+    "annual": "Anual",
+    "annual-badge": "Mejor oferta (-61,3%)",
+    "annual-price": "59,90€ (4,99€/mes) después de 7 días de prueba",
+    "quarterly": "Trimestral",
+    "quarterly-badge": "Más Popular (-23,66%)",
+    "quarterly-price": "29,97€(9,99/mes) después de 7 días de prueba",
+    "monthly": "Mensual",
+    "monthly-price": "12,90€/mes después de 7 días de prueba",
+    "restore-purchase": "Restaurar compra",
+    "terms": "Términos y condiciones",
+    "not-interested": "No me interesa"
+  },
+  "profile": {
+    "stats": "Estadísticas",
+    "avg-daily-time": "Tiempo promedio diario entrenando y/o aprendiendo",
+    "total-time": "Tiempo entrenando y/o aprendiendo",
+    "sessions-completed": "Entrenamientos y lecciones completadas con éxito",
+    "joined-in": "Te uniste en {{date}}"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "ok": "OK",
+    "error": "Error",
+    "not-found": "¡No encontrado!",
+    "go-home": "Volver a la pantalla principal"
+  }
+}
